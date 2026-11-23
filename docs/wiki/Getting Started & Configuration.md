@@ -1,13 +1,31 @@
 # Q702 — Getting Started & Configuration
 
-## Current evidence
-The default-branch README contains only the heading `# NFT`.
+## Requirements
+- Node.js and npm.
+- Dependencies declared in the root `package.json`.
+- A local Ethereum development node for the configured Truffle development network.
 
-## Setup status
-No install command, runtime, package manager, blockchain network, contract deployment, wallet setup, environment variable, or configuration file is documented by the README reviewed.
+## Install and compile
+From the repository root:
 
-## Before setup can be documented
-Inspect the repository tree and identify whether this is a smart-contract project, NFT collection, web application, design asset repository, or an experiment. Then document verified prerequisites and safe setup steps.
+```bash
+npm install
+npm run compile
+```
 
-## Do not assume
-Do not install dependencies, connect a wallet, deploy a contract, fund an account, or publish metadata based only on the repository name.
+The Truffle compiler version is pinned to Solidity 0.8.9 in `truffle-config.js`.
+
+## Run the contract tests
+The repository contains `test/NFT.test.js`, but the `npm test` script is only a failing placeholder. The configured development network points to `127.0.0.1:8545`; start the local Ganache CLI process in one terminal, then run Truffle tests in another:
+
+```bash
+npx ganache-cli --host 127.0.0.1 --port 8545
+npx truffle test --network development
+```
+
+The test file currently covers contract name/symbol, minting and token URI, balance, transfer, and owner pause/unpause behavior. This documentation review did not execute these commands, so successful compilation or tests are not claimed.
+
+## Configuration and deployment boundary
+The active Truffle configuration contains a local development network. Infura/HDWalletProvider and Truffle Dashboard examples are comments only. No public deployment network or deployment procedure is currently configured.
+
+Do not connect a funded wallet, expose a mnemonic/private key, or deploy to a public chain as part of local setup.

@@ -1,22 +1,28 @@
 # Q702 — Overview
 
 ## Purpose and scope
-The default-branch README currently contains only the heading `# NFT`. That establishes an NFT-related label, but it does not establish the repository's intended product, audience, feature set, implementation, or deployment model.
+Q702 is an Ethereum-oriented NFT smart-contract repository. The default-branch package manifest identifies the package as `NFT`, exposes a Truffle compile command, and includes Solidity contract dependencies. The source contains an ERC-721 token contract named `NFT`.
 
-## Verified repository facts
-- Repository: [JonesPride/Q702](https://github.com/JonesPride/Q702)
-- Default branch: `main`
-- README content: `# NFT`
-- No additional purpose or functionality is documented in the README reviewed for this documentation pass.
+## Verified implementation
+The contract in `contracts/NFT.sol`:
+- Inherits OpenZeppelin ERC-721, enumerable, URI storage, pausable, ownable, burnable, EIP-712, and ERC-721 votes extensions.
+- Accepts token name, symbol, and EIP-712 version in its constructor.
+- Exposes owner-only `safeMint(address to, string uri)`, assigning sequential token IDs starting at zero and storing the supplied token URI.
+- Exposes owner-only `pause()` and `unpause()`.
+- Applies the pause guard to token transfers through `_beforeTokenTransfer`.
+- Implements required Solidity overrides for transfer hooks, burn, token URI, and interface support.
 
-## Implementation status
-**Unverified.** No product behavior, smart contract, token standard, chain, frontend, backend, or release status is asserted here.
+## Build configuration
+- `package.json` provides `truffle compile`.
+- Truffle is declared as a development dependency.
+- The package test script is a placeholder that prints “Error: no test specified” and exits with failure.
+- `truffle-config.js` contains a commented-out example of external wallet-provider/Infura configuration. It is not an active deployment configuration.
 
-## Questions to resolve
-1. What is Q702 intended to represent or deliver?
-2. Is this an NFT collection, marketplace, minting tool, experiment, or something else?
-3. Which networks, contracts, metadata formats, and user flows are in scope?
-4. What is implemented versus planned?
+## Not established
+No deployed contract address, selected network, verified deployment, frontend, wallet connection, metadata hosting, production minting flow, or successful test suite was verified. Do not infer these from the contract source.
+
+## Security and operational caution
+This contract is not independently audited by this documentation pass. The owner-only mint and pause controls are implementation facts, not a security certification. Do not deploy, sign transactions, connect a wallet, or fund an account as part of documentation work.
 
 ## Source basis
-This page intentionally records the limits of the current repository documentation rather than inventing project details.
+Default-branch `README.md`, `package.json`, `truffle-config.js`, and `contracts/NFT.sol`.

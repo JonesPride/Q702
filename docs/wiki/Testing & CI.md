@@ -1,16 +1,21 @@
 # Q702 — Testing & CI
 
-## Current evidence
-The README contains no testing or CI instructions beyond the project label `NFT`.
+## Available package commands
+The root `package.json` defines:
+- `npm run compile`: invokes `truffle compile`.
+- `npm test`: placeholder script that prints “Error: no test specified” and exits with status 1.
 
-## Status
-Build commands, test framework, contract tests, static analysis, CI workflows, and deployment checks are **not documented or verified** in this pass.
+## Verification status
+The existence of a compile command does not establish that compilation currently succeeds. The test script is explicitly not implemented. This review did not run Truffle or deploy to a local or public chain.
 
-## Required inventory
-- Identify source and test directories.
-- Identify package/build manifests.
-- Inspect GitHub Actions workflows.
-- Identify any contract compiler, local chain, testnet, or mainnet deployment process.
-- Record actual successful workflow runs separately from configured workflows.
+## Required verification before deployment
+1. Install dependencies using a lockfile-consistent package-manager workflow.
+2. Run Truffle compilation and record the exact compiler/dependency versions.
+3. Add contract tests for constructor parameters, owner-only minting, sequential token IDs, URI assignment, pause/unpause, transfer blocking while paused, burn behavior, enumeration, and voting checkpoints.
+4. Test unauthorized callers for every privileged operation.
+5. Test edge cases and revert behavior on a local chain.
+6. Review compiler warnings and dependency vulnerabilities.
+7. Keep deployment tests separate from mainnet deployment; never use real funds as a test substitute.
 
-Do not claim a passing build or secure contract without execution evidence.
+## CI status
+No CI workflow or passing workflow run was verified during this documentation review. Do not claim that the contract is tested, audited, or deployment-ready.
